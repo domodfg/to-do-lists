@@ -1,4 +1,5 @@
 import { task, project } from "./factory.js";
+import { userInterface } from "./index.js";
 
 const updateID = () => {
   const allTask = document.querySelectorAll(".task");
@@ -34,7 +35,7 @@ const arraytoDOM = () => {
     remove.setAttribute("class", "remove");
     remove.textContent = "remove";
     remove.addEventListener("click", () => {
-      const removedTask = document.querySelectorAll('.task');
+      const removedTask = document.querySelectorAll(".task");
       task.currentProject.array.splice(remove.id, 1);
       container.removeChild(removedTask[remove.id]);
       updateID();
@@ -64,8 +65,10 @@ const projectToDOM = () => {
     const title = document.createElement("a");
     title.textContent = project.projectList[i].title;
     title.setAttribute("id", i);
+    title.setAttribute("class", "projectTitle");
     title.addEventListener("click", () => {
       task.currentProject = project.projectList[title.id];
+      userInterface.currentProjectTitle.textContent = task.currentProject.title;
       arraytoDOM();
     });
 
@@ -74,19 +77,22 @@ const projectToDOM = () => {
     remove.setAttribute("class", "projectRemove");
     remove.textContent = "remove";
     remove.addEventListener("click", () => {
-    const removedProject = document.querySelectorAll('.project');
+      const removedProject = document.querySelectorAll(".project");
       project.projectList.splice(remove.id, 1);
       container.removeChild(removedProject[remove.id]);
       updateProjectID();
-      console.log(project.projectList);
+      task.currentProject = task.today;
+      userInterface.currentProjectTitle.textContent = task.currentProject.title;
+      arraytoDOM();
     });
 
     const projectCard = document.createElement("div");
     projectCard.setAttribute("id", i);
     projectCard.setAttribute("class", "project");
     projectCard.appendChild(title);
-    projectCard.appendChild(remove);
-
+    if (i > 0) {
+      projectCard.appendChild(remove);
+    }
     container.appendChild(projectCard);
   }
 };
@@ -94,11 +100,15 @@ const projectToDOM = () => {
 const updateProjectID = () => {
   const allProject = document.querySelectorAll(".project");
   const allProjectRemove = document.querySelectorAll(".projectRemove");
+  const allProjectTitle = document.querySelectorAll(".projectTitle");
   allProject.forEach((project, i) => {
     project.id = i;
   });
-  allProjectRemove.forEach((remove, i) => {
-    remove.id = i;
+  allProjectRemove.forEach((ProjectRemove, i) => {
+    ProjectRemove.id = i+1;
+  });
+  allProjectTitle.forEach((Title, i) => {
+    Title.id = i;
   });
 };
 
