@@ -10,13 +10,13 @@ const arraytoDOM = () => {
 
   for (let i = 0; i < task.currentProject.array.length; i++) {
     const title = document.createElement("div");
-    title.textContent = task.currentProject.array[i].newTask.title;
+    title.textContent = task.currentProject.array[i].title;
 
     const description = document.createElement("div");
-    description.textContent = task.currentProject.array[i].newTask.description;
+    description.textContent = task.currentProject.array[i].description;
 
     const dueDate = document.createElement("div");
-    dueDate.textContent = task.currentProject.array[i].newTask.dueDate;
+    dueDate.textContent = task.currentProject.array[i].dueDate;
 
     const remove = document.createElement("button");
     remove.setAttribute("id", i);

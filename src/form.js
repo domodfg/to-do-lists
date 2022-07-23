@@ -1,5 +1,6 @@
-import { task } from "./factory.js";
+import { task, project} from "./factory.js";
 import { arraytoDOM } from "./arrayToDOM.js";
+
 
 const formInput = (() => {
   const title = document.createElement("input");
@@ -40,7 +41,7 @@ const formInput = (() => {
   const submit = document.createElement("button");
   submit.setAttribute("type", "button");
   submit.textContent = "Submit";
-  submit.addEventListener('click', ()=>formSubmit.submit())
+  submit.addEventListener("click", () => formSubmit.submit());
 
   const cancel = document.createElement("button");
   cancel.setAttribute("type", "button");
@@ -69,23 +70,61 @@ const formInput = (() => {
 })();
 
 const formSubmit = (() => {
-
   const submit = () => {
-      if (title.checkValidity()) {
-        task.addTaskToArray(task.currentProject);
-        console.log(task.currentProject);
-        formInput.title.value = "";
-        formInput.description.value = "";
-        formInput.dueDate.value = "";
-        arraytoDOM();
-      } else {
-        title.reportValidity();
-      }
+    if (formInput.title.checkValidity()) {
+      task.addTaskToArray(task.currentProject);
+      console.log(task.currentProject);
+      formInput.title.value = "";
+      formInput.description.value = "";
+      formInput.dueDate.value = "";
+      arraytoDOM();
+    } else {
+      formInput.title.reportValidity();
     }
-  ;
+  };
   return {
-    submit
+    submit,
   };
 })();
 
-export { formInput, formSubmit };
+const newProjectForm = (() => {
+  const title = document.createElement("input");
+  const titleLabel = document.createElement("label");
+  title.setAttribute("required", "");
+  title.setAttribute("id", "title");
+  titleLabel.setAttribute("for", "title");
+  titleLabel.textContent = "Project Title: ";
+
+  const submit = document.createElement("button");
+  submit.setAttribute("type", "button");
+  submit.textContent = "Submit";
+  submit.addEventListener("click", () => projectSubmit.submit());
+
+
+  const form = document.createElement("form");
+  form.appendChild(titleLabel);
+  form.appendChild(title);
+  form.appendChild(submit);
+
+ 
+  return {
+    title,
+    form,
+  };
+})();
+
+const projectSubmit = (() => {
+  const submit = () => {
+    if (newProjectForm.title.checkValidity()) {
+      project.addtoProjectList();
+      newProjectForm.title.value = "";
+    } else {
+      newProjectForm.title.reportValidity();
+    }
+  };
+  return {
+    submit,
+  };
+})();
+
+export { formInput, formSubmit, newProjectForm };

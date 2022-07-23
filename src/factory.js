@@ -1,4 +1,4 @@
-import { formInput } from "./form";
+import { formInput, newProjectForm } from "./form";
 
 const toDoFactory = (title, description, priority, dueDate) => {
   return { title, description, priority, dueDate };
@@ -10,28 +10,34 @@ const projectFactory = (title) => {
 };
 
 const task = (() => {
- 
-  const inputToTask = () => {
+  const today = projectFactory("today");
+  const currentProject = today;
+
+  const addTaskToArray = (project) => {
     const title = formInput.title.value;
     const description = formInput.description.value;
     const priority = formInput.priority.value;
     const dueDate = formInput.dueDate.value;
     const newTask = toDoFactory(title, description, priority, dueDate);
-    return {newTask}
-  };
-
-  const today = projectFactory('today')
-  const currentProject = today;
-
-  const addTaskToArray = (project) => {
-    const newTask = inputToTask();
-    project.array.push(newTask)
+    project.array.push(newTask);
   };
 
   return {
-    inputToTask, 
+    today,
     addTaskToArray,
     currentProject,
   };
 })();
-export { toDoFactory, projectFactory, task };
+
+const project = (() => {
+  const projectList = [task.today];
+
+  const addtoProjectList = () => {
+    const title = newProjectForm.title.value;
+    const newProject = projectFactory(title);
+    projectList.push(newProject);
+    console.log(projectList);
+  };
+  return { addtoProjectList };
+})();
+export { toDoFactory, projectFactory, task, project };
