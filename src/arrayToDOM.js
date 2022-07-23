@@ -12,7 +12,7 @@ const updateID = () => {
 };
 
 const arraytoDOM = () => {
-  const container = document.querySelector(".container");
+  const container = document.querySelector(".taskContainer");
 
   const existedTask = document.querySelectorAll(".task");
   existedTask.forEach((tasks) => {
@@ -34,9 +34,9 @@ const arraytoDOM = () => {
     remove.setAttribute("class", "remove");
     remove.textContent = "remove";
     remove.addEventListener("click", () => {
-      const removedTask = document.getElementById(remove.id);
+      const removedTask = document.querySelectorAll('.task');
       task.currentProject.array.splice(remove.id, 1);
-      container.removeChild(removedTask);
+      container.removeChild(removedTask[remove.id]);
       updateID();
       console.log(task.currentProject);
     });
@@ -53,7 +53,7 @@ const arraytoDOM = () => {
 };
 
 const projectToDOM = () => {
-  const container = document.querySelector(".container");
+  const container = document.querySelector(".projectContainer");
 
   const existedProject = document.querySelectorAll(".project");
   existedProject.forEach((Project) => {
@@ -63,15 +63,20 @@ const projectToDOM = () => {
   for (let i = 0; i < project.projectList.length; i++) {
     const title = document.createElement("a");
     title.textContent = project.projectList[i].title;
+    title.setAttribute("id", i);
+    title.addEventListener("click", () => {
+      task.currentProject = project.projectList[title.id];
+      arraytoDOM();
+    });
 
     const remove = document.createElement("button");
     remove.setAttribute("id", i);
     remove.setAttribute("class", "projectRemove");
     remove.textContent = "remove";
     remove.addEventListener("click", () => {
-      const removedProject = document.getElementById(remove.id);
+    const removedProject = document.querySelectorAll('.project');
       project.projectList.splice(remove.id, 1);
-      container.removeChild(removedProject);
+      container.removeChild(removedProject[remove.id]);
       updateProjectID();
       console.log(project.projectList);
     });
