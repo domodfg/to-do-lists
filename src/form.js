@@ -1,3 +1,5 @@
+import { task } from "./factory.js";
+
 const formInput = (() => {
   const title = document.createElement("input");
   const titleLabel = document.createElement("label");
@@ -37,6 +39,8 @@ const formInput = (() => {
   const submit = document.createElement("button");
   submit.setAttribute("type", "button");
   submit.textContent = "Submit";
+  submit.addEventListener('click', ()=>formSubmit.submit())
+
   const cancel = document.createElement("button");
   cancel.setAttribute("type", "button");
   cancel.textContent = "Cancel";
@@ -63,4 +67,24 @@ const formInput = (() => {
   };
 })();
 
-export { formInput };
+const formSubmit = (() => {
+
+  const submit = () => {
+      if (title.checkValidity()) {
+        task.addTaskToArray(task.currentProject);
+        console.log(task.currentProject);
+        formInput.title.value = "";
+        formInput.description.value = "";
+        formInput.dueDate.value = "";
+      } else {
+        title.reportValidity();
+      }
+    }
+  ;
+
+  return {
+    submit
+  };
+})();
+
+export { formInput, formSubmit };
