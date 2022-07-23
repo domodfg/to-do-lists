@@ -1,4 +1,5 @@
 import { task } from "./factory.js";
+import { arraytoDOM } from "./arrayToDOM.js";
 
 const formInput = (() => {
   const title = document.createElement("input");
@@ -76,12 +77,12 @@ const formSubmit = (() => {
         formInput.title.value = "";
         formInput.description.value = "";
         formInput.dueDate.value = "";
+        arraytoDOM();
       } else {
         title.reportValidity();
       }
     }
   ;
-
   return {
     submit
   };
