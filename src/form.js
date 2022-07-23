@@ -1,5 +1,5 @@
 import { task, project} from "./factory.js";
-import { arraytoDOM } from "./arrayToDOM.js";
+import { arraytoDOM, projectToDOM  } from "./arrayToDOM.js";
 
 
 const formInput = (() => {
@@ -118,6 +118,7 @@ const projectSubmit = (() => {
     if (newProjectForm.title.checkValidity()) {
       project.addtoProjectList();
       newProjectForm.title.value = "";
+      projectToDOM();
     } else {
       newProjectForm.title.reportValidity();
     }

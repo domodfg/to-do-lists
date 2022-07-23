@@ -1,4 +1,15 @@
-import { task } from "./factory.js";
+import { task, project } from "./factory.js";
+
+const updateID = () => {
+  const allTask = document.querySelectorAll(".task");
+  const allRemove = document.querySelectorAll(".remove");
+  allTask.forEach((task, i) => {
+    task.id = i;
+  });
+  allRemove.forEach((remove, i) => {
+    remove.id = i;
+  });
+};
 
 const arraytoDOM = () => {
   const container = document.querySelector(".container");
@@ -41,16 +52,49 @@ const arraytoDOM = () => {
   }
 };
 
+const projectToDOM = () => {
+  const container = document.querySelector(".container");
 
-const updateID = () => {
-  const allTask = document.querySelectorAll(".task");
-  const allRemove = document.querySelectorAll(".remove");
-  allTask.forEach((task, i) => {
-    task.id = i;
+  const existedProject = document.querySelectorAll(".project");
+  existedProject.forEach((Project) => {
+    container.removeChild(Project);
   });
-  allRemove.forEach((remove, i) => {
+
+  for (let i = 0; i < project.projectList.length; i++) {
+    const title = document.createElement("a");
+    title.textContent = project.projectList[i].title;
+
+    const remove = document.createElement("button");
+    remove.setAttribute("id", i);
+    remove.setAttribute("class", "projectRemove");
+    remove.textContent = "remove";
+    remove.addEventListener("click", () => {
+      const removedProject = document.getElementById(remove.id);
+      project.projectList.splice(remove.id, 1);
+      container.removeChild(removedProject);
+      updateProjectID();
+      console.log(project.projectList);
+    });
+
+    const projectCard = document.createElement("div");
+    projectCard.setAttribute("id", i);
+    projectCard.setAttribute("class", "project");
+    projectCard.appendChild(title);
+    projectCard.appendChild(remove);
+
+    container.appendChild(projectCard);
+  }
+};
+
+const updateProjectID = () => {
+  const allProject = document.querySelectorAll(".project");
+  const allProjectRemove = document.querySelectorAll(".projectRemove");
+  allProject.forEach((project, i) => {
+    project.id = i;
+  });
+  allProjectRemove.forEach((remove, i) => {
     remove.id = i;
   });
 };
 
-export { arraytoDOM };
+export { arraytoDOM, projectToDOM };

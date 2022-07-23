@@ -38,6 +38,6 @@ const project = (() => {
     projectList.push(newProject);
     console.log(projectList);
   };
-  return { addtoProjectList };
+  return { projectList, addtoProjectList };
 })();
 export { toDoFactory, projectFactory, task, project };
