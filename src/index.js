@@ -3,6 +3,7 @@ import { task, project, taskSubmit, projectSubmit } from "./factory.js";
 import { formInput, newProjectForm } from "./form.js";
 import { arraytoDOM, projectToDOM } from "./arrayToDOM.js";
 import { edit } from "./edit";
+import { storage } from "./storage";
 
 const container = document.querySelector(".container");
 const current = document.querySelector(".currentProject");
@@ -15,11 +16,12 @@ createTask.addEventListener("click", () => {
   formInput.submit.classList.remove("hidden");
   edit.formEditButton.classList.add("hidden");
   container.appendChild(formInput.form);
-  taskSubmit();
+  console.log(project.projectList);
 });
 
 container.appendChild(newProjectForm.form);
 container.appendChild(createTask);
+taskSubmit();
 projectSubmit();
 
 const userInterface = (() => {
@@ -29,8 +31,8 @@ const userInterface = (() => {
   return { currentProjectTitle, appendTitle };
 })();
 
-arraytoDOM();
 projectToDOM();
+arraytoDOM();
 userInterface.appendTitle();
 
 export { userInterface };

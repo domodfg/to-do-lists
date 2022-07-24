@@ -91,7 +91,6 @@ const newProjectForm = (() => {
 })();
 
 const addEventToCancel = (()=>{
-  const container = document.querySelector(".container");
   formInput.cancel.addEventListener('click', ()=> {
     formInput.form.remove()
   })

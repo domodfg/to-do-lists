@@ -2,6 +2,7 @@ import { task, project } from "./factory.js";
 import { userInterface } from "./index.js";
 import { formInput } from "./form.js";
 import { edit } from "./edit.js";
+import { storage } from "./storage.js";
 
 const updateID = () => {
   const allTask = document.querySelectorAll(".task");
@@ -46,6 +47,7 @@ const arraytoDOM = () => {
       task.currentProject.array.splice(remove.id, 1);
       container.removeChild(removedTask[remove.id]);
       updateID();
+      storage.store();
       console.log(task.currentProject);
     });
 
@@ -84,7 +86,7 @@ const addEventTOEdit = (() => {
     task.currentProject.array[edit.formEditButton.id].description = description;
     task.currentProject.array[edit.formEditButton.id].priority = priority;
     task.currentProject.array[edit.formEditButton.id].dueDate = dueDate;
-
+    storage.store();
     console.log(task.currentProject.array);
     arraytoDOM();
   });
@@ -117,6 +119,7 @@ const projectToDOM = () => {
       const removedProject = document.querySelectorAll(".project");
       project.projectList.splice(remove.id, 1);
       container.removeChild(removedProject[remove.id]);
+      storage.store();
       updateProjectID();
       task.currentProject = task.today;
       userInterface.currentProjectTitle.textContent = task.currentProject.title;
