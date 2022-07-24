@@ -1,12 +1,22 @@
 import "./style.css";
-import { toDoFactory, projectFactory, task, project } from "./factory.js";
-import { formInput, formSubmit, newProjectForm } from "./form.js";
+import { task, project, taskSubmit, projectSubmit } from "./factory.js";
+import { formInput, newProjectForm } from "./form.js";
 import { arraytoDOM, projectToDOM } from "./arrayToDOM.js";
+import { edit } from "./edit";
 
 const container = document.querySelector(".container");
 const current = document.querySelector(".currentProject");
-container.appendChild(formInput.form);
+const createTask = document.createElement("button");
+createTask.textContent = "New Tasks";
+createTask.addEventListener("click", () => {
+  container.appendChild(formInput.form);
+  formInput.form.appendChild(formInput.submit);
+  taskSubmit();
+  projectSubmit();
+});
+
 container.appendChild(newProjectForm.form);
+container.appendChild(createTask);
 
 const userInterface = (() => {
   const currentProjectTitle = document.createElement("p");

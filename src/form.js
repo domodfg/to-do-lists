@@ -1,7 +1,3 @@
-import { task, project} from "./factory.js";
-import { arraytoDOM, projectToDOM  } from "./arrayToDOM.js";
-
-
 const formInput = (() => {
   const title = document.createElement("input");
   const titleLabel = document.createElement("label");
@@ -40,8 +36,8 @@ const formInput = (() => {
 
   const submit = document.createElement("button");
   submit.setAttribute("type", "button");
+  submit.setAttribute("class", "formSubmit");
   submit.textContent = "Submit";
-  submit.addEventListener("click", () => formSubmit.submit());
 
   const cancel = document.createElement("button");
   cancel.setAttribute("type", "button");
@@ -69,24 +65,6 @@ const formInput = (() => {
   };
 })();
 
-const formSubmit = (() => {
-  const submit = () => {
-    if (formInput.title.checkValidity()) {
-      task.addTaskToArray(task.currentProject);
-      console.log(task.currentProject);
-      formInput.title.value = "";
-      formInput.description.value = "";
-      formInput.dueDate.value = "";
-      arraytoDOM();
-    } else {
-      formInput.title.reportValidity();
-    }
-  };
-  return {
-    submit,
-  };
-})();
-
 const newProjectForm = (() => {
   const title = document.createElement("input");
   const titleLabel = document.createElement("label");
@@ -97,35 +75,19 @@ const newProjectForm = (() => {
 
   const submit = document.createElement("button");
   submit.setAttribute("type", "button");
+  submit.setAttribute("class", "projectSubmit");
   submit.textContent = "Submit";
-  submit.addEventListener("click", () => projectSubmit.submit());
-
 
   const form = document.createElement("form");
   form.appendChild(titleLabel);
   form.appendChild(title);
   form.appendChild(submit);
 
- 
   return {
     title,
     form,
+    submit
   };
 })();
 
-const projectSubmit = (() => {
-  const submit = () => {
-    if (newProjectForm.title.checkValidity()) {
-      project.addtoProjectList();
-      newProjectForm.title.value = "";
-      projectToDOM();
-    } else {
-      newProjectForm.title.reportValidity();
-    }
-  };
-  return {
-    submit,
-  };
-})();
-
-export { formInput, formSubmit, newProjectForm };
+export { formInput, newProjectForm };

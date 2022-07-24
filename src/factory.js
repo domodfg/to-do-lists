@@ -1,4 +1,5 @@
 import { formInput, newProjectForm } from "./form";
+import { arraytoDOM, projectToDOM } from "./arrayToDOM.js";
 
 const toDoFactory = (title, description, priority, dueDate) => {
   return { title, description, priority, dueDate };
@@ -29,6 +30,21 @@ const task = (() => {
   };
 })();
 
+const taskSubmit = () => {
+  formInput.submit.addEventListener("click", () => {
+    if (formInput.title.checkValidity()) {
+      task.addTaskToArray(task.currentProject);
+      console.log(task.currentProject);
+      formInput.title.value = "";
+      formInput.description.value = "";
+      formInput.dueDate.value = "";
+      arraytoDOM();
+    } else {
+      formInput.title.reportValidity();
+    }
+  });
+};
+
 const project = (() => {
   const projectList = [task.today];
 
@@ -40,4 +56,16 @@ const project = (() => {
   };
   return { projectList, addtoProjectList };
 })();
-export { toDoFactory, projectFactory, task, project };
+
+const projectSubmit = () => {
+  newProjectForm.submit.addEventListener("click", () => {
+    if (newProjectForm.title.checkValidity()) {
+      project.addtoProjectList();
+      newProjectForm.title.value = "";
+      projectToDOM();
+    } else {
+      newProjectForm.title.reportValidity();
+    }
+  });
+};
+export { task, project, taskSubmit, projectSubmit };

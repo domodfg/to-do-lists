@@ -1,14 +1,20 @@
 import { task, project } from "./factory.js";
 import { userInterface } from "./index.js";
+import { formInput } from "./form.js";
+import { edit } from "./edit.js";
 
 const updateID = () => {
   const allTask = document.querySelectorAll(".task");
   const allRemove = document.querySelectorAll(".remove");
+  const allEdit = document.querySelectorAll(".edit");
   allTask.forEach((task, i) => {
     task.id = i;
   });
   allRemove.forEach((remove, i) => {
     remove.id = i;
+  });
+  allEdit.forEach((edit, i) => {
+    edit.id = i;
   });
 };
 
@@ -23,6 +29,7 @@ const arraytoDOM = () => {
   for (let i = 0; i < task.currentProject.array.length; i++) {
     const title = document.createElement("div");
     title.textContent = task.currentProject.array[i].title;
+    title.setAttribute("class", "title");
 
     const description = document.createElement("div");
     description.textContent = task.currentProject.array[i].description;
@@ -49,9 +56,37 @@ const arraytoDOM = () => {
     taskCard.appendChild(dueDate);
     taskCard.appendChild(remove);
 
+    const editButton = document.createElement("button");
+    editButton.setAttribute("id", i);
+    editButton.setAttribute("class", "edit");
+    editButton.textContent = "edit";
+
+    editButton.addEventListener("click", () => {
+      taskCard.appendChild(edit.editForm);
+      edit.switchForm();
+      edit.formEditButton.setAttribute("id", editButton.id);
+    });
+
+    taskCard.appendChild(editButton);
     container.appendChild(taskCard);
   }
 };
+
+const addEventTOEdit = (() => {
+  edit.formEditButton.addEventListener("click", () => {
+    const newTitle = formInput.title.value;
+    const description = formInput.description.value;
+    const priority = formInput.priority.value;
+    const dueDate = formInput.dueDate.value;
+    task.currentProject.array[edit.formEditButton.id].title = newTitle;
+    task.currentProject.array[edit.formEditButton.id].description = description;
+    task.currentProject.array[edit.formEditButton.id].priority = priority;
+    task.currentProject.array[edit.formEditButton.id].dueDate = dueDate;
+
+    console.log(task.currentProject.array);
+    arraytoDOM();
+  });
+})();
 
 const projectToDOM = () => {
   const container = document.querySelector(".projectContainer");
@@ -105,7 +140,7 @@ const updateProjectID = () => {
     project.id = i;
   });
   allProjectRemove.forEach((ProjectRemove, i) => {
-    ProjectRemove.id = i+1;
+    ProjectRemove.id = i + 1;
   });
   allProjectTitle.forEach((Title, i) => {
     Title.id = i;
