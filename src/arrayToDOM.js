@@ -65,6 +65,8 @@ const arraytoDOM = () => {
       taskCard.appendChild(edit.editForm);
       edit.switchForm();
       edit.formEditButton.setAttribute("id", editButton.id);
+      edit.formEditButton.classList.remove("hidden");
+      formInput.submit.classList.add("hidden");
     });
 
     taskCard.appendChild(editButton);

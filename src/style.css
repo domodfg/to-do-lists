@@ -4,3 +4,7 @@
     justify-content: space-around;
     height: 50vh;
 }
+
+.hidden {
+    display: none;
+}

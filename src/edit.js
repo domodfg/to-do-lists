@@ -1,5 +1,4 @@
 import { formInput } from "./form";
-import { task } from "./factory.js";
 
 const edit = (() => {
   const editForm = formInput.form;

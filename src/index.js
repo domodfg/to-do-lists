@@ -9,14 +9,18 @@ const current = document.querySelector(".currentProject");
 const createTask = document.createElement("button");
 createTask.textContent = "New Tasks";
 createTask.addEventListener("click", () => {
+  formInput.title.value = "";
+  formInput.description.value = "";
+  formInput.dueDate.value = "";
+  formInput.submit.classList.remove("hidden");
+  edit.formEditButton.classList.add("hidden");
   container.appendChild(formInput.form);
-  formInput.form.appendChild(formInput.submit);
   taskSubmit();
-  projectSubmit();
 });
 
 container.appendChild(newProjectForm.form);
 container.appendChild(createTask);
+projectSubmit();
 
 const userInterface = (() => {
   const currentProjectTitle = document.createElement("p");
