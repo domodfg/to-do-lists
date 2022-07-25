@@ -1,10 +1,11 @@
 import { formInput } from "./form";
+import finished from "./playlist-edit.png";
 
 const edit = (() => {
   const editForm = formInput.form;
 
-  const formEditButton = document.createElement("button");
-  formEditButton.textContent = "Edit";
+  const formEditButton = new Image();
+  formEditButton.src = finished;
   formEditButton.setAttribute("class", ".formEdit");
   formEditButton.setAttribute("type", "button");
 

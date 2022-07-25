@@ -3,6 +3,8 @@ import { userInterface } from "./index.js";
 import { formInput } from "./form.js";
 import { edit } from "./edit.js";
 import { storage } from "./storage.js";
+import expand from "./unfold-more-horizontal.png";
+import trash from "./trash-can-outline.png";
 
 const updateID = () => {
   const allTask = document.querySelectorAll(".task");
@@ -39,23 +41,22 @@ const arraytoDOM = () => {
     dueDate.textContent = task.currentProject.array[i].dueDate;
     dueDate.setAttribute("class", "dueDate");
 
-    const remove = document.createElement("button");
+    const remove = new Image();
+    remove.src = trash;
     remove.setAttribute("id", i);
     remove.setAttribute("class", "remove");
-    remove.textContent = "remove";
     remove.addEventListener("click", () => {
       const removedTask = document.querySelectorAll(".task");
       task.currentProject.array.splice(remove.id, 1);
       container.removeChild(removedTask[remove.id]);
       updateID();
       storage.store();
-      console.log(task.currentProject);
     });
 
-    const editButton = document.createElement("button");
+    const editButton = new Image();
+    editButton.src = expand;
     editButton.setAttribute("id", i);
     editButton.setAttribute("class", "edit");
-    editButton.textContent = "edit";
 
     editButton.addEventListener("click", () => {
       taskCard.appendChild(edit.editForm);
@@ -87,17 +88,22 @@ const arraytoDOM = () => {
 
 const addEventTOEdit = (() => {
   edit.formEditButton.addEventListener("click", () => {
-    const newTitle = formInput.title.value;
-    const description = formInput.description.value;
-    const priority = formInput.priority.value;
-    const dueDate = formInput.dueDate.value;
-    task.currentProject.array[edit.formEditButton.id].title = newTitle;
-    task.currentProject.array[edit.formEditButton.id].description = description;
-    task.currentProject.array[edit.formEditButton.id].priority = priority;
-    task.currentProject.array[edit.formEditButton.id].dueDate = dueDate;
-    storage.store();
-    console.log(task.currentProject.array);
-    arraytoDOM();
+    if (formInput.title.checkValidity()) {
+      const newTitle = formInput.title.value;
+      const description = formInput.description.value;
+      const priority = formInput.priority.value;
+      const dueDate = formInput.dueDate.value;
+      task.currentProject.array[edit.formEditButton.id].title = newTitle;
+      task.currentProject.array[edit.formEditButton.id].description =
+        description;
+      task.currentProject.array[edit.formEditButton.id].priority = priority;
+      task.currentProject.array[edit.formEditButton.id].dueDate = dueDate;
+      storage.store();
+      console.log(task.currentProject.array);
+      arraytoDOM();
+    } else {
+      formInput.title.reportValidity();
+    }
   });
 })();
 
@@ -120,10 +126,10 @@ const projectToDOM = () => {
       arraytoDOM();
     });
 
-    const remove = document.createElement("button");
+    const remove = new Image();
+    remove.src = trash;
     remove.setAttribute("id", i);
     remove.setAttribute("class", "projectRemove");
-    remove.textContent = "remove";
     remove.addEventListener("click", () => {
       const removedProject = document.querySelectorAll(".project");
       project.projectList.splice(remove.id, 1);
@@ -132,7 +138,7 @@ const projectToDOM = () => {
       updateProjectID();
       task.currentProject = localStorage.hasOwnProperty("projectStorage")
         ? storage.projectStoreParsed[0]
-        : today;
+        : task.today;
       userInterface.currentProjectTitle.textContent = task.currentProject.title;
       arraytoDOM();
     });

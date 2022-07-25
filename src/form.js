@@ -1,3 +1,6 @@
+import close from "./close-outline.png"
+import tick from "./check-outline.png"
+
 const formInput = (() => {
   const title = document.createElement("input");
   const titleLabel = document.createElement("label");
@@ -33,23 +36,35 @@ const formInput = (() => {
 
   const dueDate = document.createElement("input");
   dueDate.setAttribute("type", "date");
+  dueDate.setAttribute("class", "date");
 
-  const submit = document.createElement("button");
+  const submit = new Image()
+  submit.src = tick;
   submit.setAttribute("type", "button");
   submit.setAttribute("class", "formSubmit");
-  submit.textContent = "Submit";
 
-  const cancel = document.createElement("button");
+  const cancel = new Image()
+  cancel.src = close;
   cancel.setAttribute("type", "button");
-  cancel.textContent = "Cancel";
+  
 
   const form = document.createElement("form");
-  form.appendChild(titleLabel);
-  form.appendChild(title);
-  form.appendChild(descriptionLabel);
-  form.appendChild(description);
-  form.appendChild(prioLabel);
-  form.appendChild(priority);
+  form.setAttribute("class", "form");
+  const titleContainer = document.createElement("div");
+  titleContainer.appendChild(titleLabel);
+  titleContainer.appendChild(title);
+
+  const descriptionContainer = document.createElement("div");
+  descriptionContainer.appendChild(descriptionLabel);
+  descriptionContainer.appendChild(description);
+
+  const prioContainer = document.createElement("div");
+  prioContainer.appendChild(prioLabel);
+  prioContainer.appendChild(priority);
+
+  form.appendChild(titleContainer);
+  form.appendChild(descriptionContainer);
+  form.appendChild(prioContainer);
   form.appendChild(dueDate);
   form.appendChild(submit);
   form.appendChild(cancel);
@@ -61,7 +76,7 @@ const formInput = (() => {
     dueDate,
     submit,
     cancel,
-    form,
+    form
   };
 })();
 
@@ -73,14 +88,14 @@ const newProjectForm = (() => {
   titleLabel.setAttribute("for", "title");
   titleLabel.textContent = "Project Title: ";
 
-  const submit = document.createElement("button");
+  const submit = new Image()
+  submit.src = tick;
   submit.setAttribute("type", "button");
   submit.setAttribute("class", "projectSubmit");
-  submit.textContent = "Submit";
 
-  const cancel = document.createElement("button");
+  const cancel = new Image()
+  cancel.src = close;
   cancel.setAttribute("type", "button");
-  cancel.textContent = "Cancel";
 
   const form = document.createElement("form");
   form.appendChild(titleLabel);
