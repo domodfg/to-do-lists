@@ -37,12 +37,12 @@ const taskSubmit = () => {
   formInput.submit.addEventListener("click", () => {
     if (formInput.title.checkValidity()) {
       task.addTaskToArray(task.currentProject);
-      console.log(task.currentProject);
       storage.store();
       formInput.title.value = "";
       formInput.description.value = "";
       formInput.dueDate.value = "";
       arraytoDOM();
+      formInput.form.remove();
     } else {
       formInput.title.reportValidity();
     }
@@ -58,7 +58,6 @@ const project = (() => {
     const title = newProjectForm.title.value;
     const newProject = projectFactory(title);
     projectList.push(newProject);
-    console.log(projectList);
   };
   return { projectList, addtoProjectList };
 })();

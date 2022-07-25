@@ -1,10 +1,79 @@
+body {
+    margin: 0;
+}
+
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 50vh;
+    display: grid;
+    grid-template-columns: 1fr 5fr; ;
+    grid-template-rows: 10fr 0.5fr;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.projectContainer {
+    justify-self: center;
+    display: grid;
+    grid-template-rows: 1fr 5fr;
+}
+
+.rightSide {
+    display: grid;
+    grid-template-rows: 2fr 10fr;
 }
 
 .hidden {
     display: none;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+}
+
+.currentProject {
+    width: 30vw;
+    text-align: center;
+    align-self: center;
+}
+
+.createTask {
+    align-self: center;
+}
+
+.taskContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10vh 10vw;
+}
+
+.task {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px black solid;
+    border-radius: 10px;
+    padding: 10px 30px;
+}
+
+.title, .projectTitle  {
+    flex: 1;
+}
+
+.project {
+    display: flex;
+}
+
+.projectList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.footer {
+    align-self: center;
+    justify-self: center;
+    grid-column: 1 / 3;
 }

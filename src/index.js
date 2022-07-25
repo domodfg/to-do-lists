@@ -5,22 +5,24 @@ import { arraytoDOM, projectToDOM } from "./arrayToDOM.js";
 import { edit } from "./edit";
 import { storage } from "./storage";
 
-const container = document.querySelector(".container");
+const taskContainer = document.querySelector(".taskContainer");
+const projectContainer = document.querySelector(".projectList");
 const current = document.querySelector(".currentProject");
-const createTask = document.createElement("button");
-createTask.textContent = "New Tasks";
+const createTask = document.querySelector(".createTask");
+const createProject = document.querySelector(".createProject");
 createTask.addEventListener("click", () => {
   formInput.title.value = "";
   formInput.description.value = "";
   formInput.dueDate.value = "";
   formInput.submit.classList.remove("hidden");
   edit.formEditButton.classList.add("hidden");
-  container.appendChild(formInput.form);
-  console.log(project.projectList);
+  taskContainer.appendChild(formInput.form);
 });
 
-container.appendChild(newProjectForm.form);
-container.appendChild(createTask);
+createProject.addEventListener("click", () => {
+  projectContainer.appendChild(newProjectForm.form);
+});
+
 taskSubmit();
 projectSubmit();
 

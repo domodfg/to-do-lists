@@ -37,6 +37,7 @@ const arraytoDOM = () => {
 
     const dueDate = document.createElement("div");
     dueDate.textContent = task.currentProject.array[i].dueDate;
+    dueDate.setAttribute('class', 'dueDate')
 
     const remove = document.createElement("button");
     remove.setAttribute("id", i);
@@ -51,13 +52,6 @@ const arraytoDOM = () => {
       console.log(task.currentProject);
     });
 
-    const taskCard = document.createElement("div");
-    taskCard.setAttribute("id", i);
-    taskCard.setAttribute("class", "task");
-    taskCard.appendChild(title);
-    taskCard.appendChild(dueDate);
-    taskCard.appendChild(remove);
-
     const editButton = document.createElement("button");
     editButton.setAttribute("id", i);
     editButton.setAttribute("class", "edit");
@@ -71,7 +65,14 @@ const arraytoDOM = () => {
       formInput.submit.classList.add("hidden");
     });
 
+    const taskCard = document.createElement("div");
+    taskCard.setAttribute("id", i);
+    taskCard.setAttribute("class", "task");
     taskCard.appendChild(editButton);
+    taskCard.appendChild(title);
+    taskCard.appendChild(dueDate);
+    taskCard.appendChild(remove);
+
     container.appendChild(taskCard);
   }
 };
@@ -93,7 +94,7 @@ const addEventTOEdit = (() => {
 })();
 
 const projectToDOM = () => {
-  const container = document.querySelector(".projectContainer");
+  const container = document.querySelector(".projectList");
 
   const existedProject = document.querySelectorAll(".project");
   existedProject.forEach((Project) => {
