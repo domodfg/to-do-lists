@@ -38,6 +38,7 @@ img:hover {
 }
 
 .createProject {
+  font-family: "Quicksand", sans-serif;
   padding: 0.5vh 0.5vw;
   background-color: #4c65c3;
   color: white;
@@ -194,6 +195,6 @@ input[type="checkbox"] {
 }
 
 .congrat {
-    border: none;
-    font-size: 2.5rem;
+  border: none;
+  font-size: 2.5rem;
 }
