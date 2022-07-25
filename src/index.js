@@ -3,7 +3,6 @@ import { task, project, taskSubmit, projectSubmit } from "./factory.js";
 import { formInput, newProjectForm } from "./form.js";
 import { arraytoDOM, projectToDOM } from "./arrayToDOM.js";
 import { edit } from "./edit";
-import { storage } from "./storage";
 
 const taskContainer = document.querySelector(".taskContainer");
 const projectContainer = document.querySelector(".projectList");
@@ -30,11 +29,20 @@ const userInterface = (() => {
   const currentProjectTitle = document.createElement("p");
   currentProjectTitle.textContent = task.currentProject.title;
   const appendTitle = () => current.appendChild(currentProjectTitle);
-  return { currentProjectTitle, appendTitle };
+  const displayIfEmpty = () => {
+    if (taskContainer.childNodes.length === 0) {
+      const congrat = document.createElement('div');
+      congrat.setAttribute('class', 'congrat task')
+      congrat.textContent="Yay! nothing more to do!"
+      taskContainer.appendChild(congrat);
+    } 
+  }
+  return { currentProjectTitle, appendTitle, displayIfEmpty };
 })();
 
 projectToDOM();
 arraytoDOM();
 userInterface.appendTitle();
+userInterface.displayIfEmpty();
 
 export { userInterface };

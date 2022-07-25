@@ -98,6 +98,7 @@ const newProjectForm = (() => {
   cancel.setAttribute("type", "button");
 
   const form = document.createElement("form");
+  form.setAttribute('class', 'projectForm')
   form.appendChild(titleLabel);
   form.appendChild(title);
   form.appendChild(submit);

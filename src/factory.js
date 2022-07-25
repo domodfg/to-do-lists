@@ -63,7 +63,7 @@ const project = (() => {
 })();
 
 const projectSubmit = () => {
-  newProjectForm.submit.addEventListener("click", () => {
+  newProjectForm.submit.addEventListener("click", (e) => {
     if (newProjectForm.title.checkValidity()) {
       project.addtoProjectList();
       storage.store();
@@ -72,6 +72,12 @@ const projectSubmit = () => {
       newProjectForm.form.remove();
     } else {
       newProjectForm.title.reportValidity();
+    }
+  });
+  newProjectForm.title.addEventListener("keypress", (e) => {
+    if (e.key === 'Enter') {
+      console.log('gay')
+      e.preventDefault();
     }
   });
 };

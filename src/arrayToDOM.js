@@ -41,6 +41,9 @@ const arraytoDOM = () => {
     dueDate.textContent = task.currentProject.array[i].dueDate;
     dueDate.setAttribute("class", "dueDate");
 
+    const checkbox = document.createElement('input')
+    checkbox.setAttribute('type', 'checkbox')
+
     const remove = new Image();
     remove.src = trash;
     remove.setAttribute("id", i);
@@ -51,6 +54,7 @@ const arraytoDOM = () => {
       container.removeChild(removedTask[remove.id]);
       updateID();
       storage.store();
+      userInterface.displayIfEmpty();
     });
 
     const editButton = new Image();
@@ -78,6 +82,7 @@ const arraytoDOM = () => {
     taskCard.setAttribute("id", i);
     taskCard.setAttribute("class", "task");
     taskCard.appendChild(editButton);
+    taskCard.appendChild(checkbox);
     taskCard.appendChild(title);
     taskCard.appendChild(dueDate);
     taskCard.appendChild(remove);
@@ -124,6 +129,7 @@ const projectToDOM = () => {
       task.currentProject = project.projectList[title.id];
       userInterface.currentProjectTitle.textContent = task.currentProject.title;
       arraytoDOM();
+      userInterface.displayIfEmpty();
     });
 
     const remove = new Image();
@@ -141,6 +147,7 @@ const projectToDOM = () => {
         : task.today;
       userInterface.currentProjectTitle.textContent = task.currentProject.title;
       arraytoDOM();
+      userInterface.displayIfEmpty();
     });
 
     const projectCard = document.createElement("div");
