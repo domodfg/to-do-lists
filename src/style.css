@@ -57,18 +57,25 @@ body {
     padding: 10px 30px;
 }
 
-.title, .projectTitle  {
+.title {
     flex: 1;
 }
 
 .project {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .projectList {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     gap: 10px;
+}
+
+.createProject {
+    align-self: center;
 }
 
 

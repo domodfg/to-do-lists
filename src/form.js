@@ -78,22 +78,31 @@ const newProjectForm = (() => {
   submit.setAttribute("class", "projectSubmit");
   submit.textContent = "Submit";
 
+  const cancel = document.createElement("button");
+  cancel.setAttribute("type", "button");
+  cancel.textContent = "Cancel";
+
   const form = document.createElement("form");
   form.appendChild(titleLabel);
   form.appendChild(title);
   form.appendChild(submit);
+  form.appendChild(cancel);
 
   return {
     title,
     form,
-    submit
+    submit,
+    cancel,
   };
 })();
 
-const addEventToCancel = (()=>{
-  formInput.cancel.addEventListener('click', ()=> {
-    formInput.form.remove()
-  })
-})()
+const addEventToCancel = (() => {
+  formInput.cancel.addEventListener("click", () => {
+    formInput.form.remove();
+  });
+  newProjectForm.cancel.addEventListener("click", () => {
+    newProjectForm.form.remove();
+  });
+})();
 
 export { formInput, newProjectForm };

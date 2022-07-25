@@ -69,6 +69,7 @@ const projectSubmit = () => {
       storage.store();
       newProjectForm.title.value = "";
       projectToDOM();
+      newProjectForm.form.remove();
     } else {
       newProjectForm.title.reportValidity();
     }

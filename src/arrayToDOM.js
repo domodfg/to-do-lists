@@ -37,7 +37,7 @@ const arraytoDOM = () => {
 
     const dueDate = document.createElement("div");
     dueDate.textContent = task.currentProject.array[i].dueDate;
-    dueDate.setAttribute('class', 'dueDate')
+    dueDate.setAttribute("class", "dueDate");
 
     const remove = document.createElement("button");
     remove.setAttribute("id", i);
@@ -63,6 +63,14 @@ const arraytoDOM = () => {
       edit.formEditButton.setAttribute("id", editButton.id);
       edit.formEditButton.classList.remove("hidden");
       formInput.submit.classList.add("hidden");
+      formInput.title.value =
+        task.currentProject.array[edit.formEditButton.id].title;
+      formInput.description.value =
+        task.currentProject.array[edit.formEditButton.id].description;
+      formInput.priority.value =
+        task.currentProject.array[edit.formEditButton.id].priority;
+      formInput.dueDate.value =
+        task.currentProject.array[edit.formEditButton.id].dueDate;
     });
 
     const taskCard = document.createElement("div");
@@ -122,7 +130,9 @@ const projectToDOM = () => {
       container.removeChild(removedProject[remove.id]);
       storage.store();
       updateProjectID();
-      task.currentProject = task.today;
+      task.currentProject = localStorage.hasOwnProperty("projectStorage")
+        ? storage.projectStoreParsed[0]
+        : today;
       userInterface.currentProjectTitle.textContent = task.currentProject.title;
       arraytoDOM();
     });
