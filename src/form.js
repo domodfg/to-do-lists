@@ -50,6 +50,7 @@ const formInput = (() => {
 
   const form = document.createElement("form");
   form.setAttribute("class", "form");
+  form.setAttribute("id", "form");
   const titleContainer = document.createElement("div");
   titleContainer.appendChild(titleLabel);
   titleContainer.appendChild(title);

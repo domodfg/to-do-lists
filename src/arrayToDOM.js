@@ -41,9 +41,6 @@ const arraytoDOM = () => {
     dueDate.textContent = task.currentProject.array[i].dueDate;
     dueDate.setAttribute("class", "dueDate");
 
-    const checkbox = document.createElement('input')
-    checkbox.setAttribute('type', 'checkbox')
-
     const remove = new Image();
     remove.src = trash;
     remove.setAttribute("id", i);
@@ -63,7 +60,11 @@ const arraytoDOM = () => {
     editButton.setAttribute("class", "edit");
 
     editButton.addEventListener("click", () => {
-      taskCard.appendChild(edit.editForm);
+      if (taskCard.contains(edit.editForm)) {
+        taskCard.removeChild(edit.editForm);
+      } else {
+        taskCard.appendChild(edit.editForm);
+      }
       edit.switchForm();
       edit.formEditButton.setAttribute("id", editButton.id);
       edit.formEditButton.classList.remove("hidden");
@@ -82,7 +83,6 @@ const arraytoDOM = () => {
     taskCard.setAttribute("id", i);
     taskCard.setAttribute("class", "task");
     taskCard.appendChild(editButton);
-    taskCard.appendChild(checkbox);
     taskCard.appendChild(title);
     taskCard.appendChild(dueDate);
     taskCard.appendChild(remove);
